@@ -17,7 +17,7 @@ class HashtagsView extends StatelessWidget {
         id: 'tags',
         builder: (DataController controller) {
           return VList(
-            loading: controller.loading,
+            loading: controller.tagLoading,
             length: controller.tags.length,
             itemBuilder: (c, i) {
               Tag data = controller.tags[i];
