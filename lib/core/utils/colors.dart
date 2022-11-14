@@ -8,7 +8,7 @@ class VColor {
 
   static const Color scaffoldBg = Color(0xff080D1B);
   static const Color cardBg = Color(0xff181A26);
-  static const Color greyText = Color(0xff525460);
+  static const Color grey = Color(0xff70717B);
   static const Color searchText = Color(0xff50566A);
   static const Color red = Color(0xffF00F13);
   static const Color orange = Color(0xffF77F00);
@@ -16,18 +16,17 @@ class VColor {
   static const Color green = Color(0xff01D157);
 
   static const Color purple = Color(0xff605DF1);
-  static const Color grey = Color(0xfff2f2f2);
   static const Color dark = Color(0x7f252525);
   static const Color border = Color(0xffE0E0E0);
   static const Color bottomGrey = Color(0xffD1D1D6);
   static const Color hint = Colors.white54;
   static const Color whatsapp = Color(0xff128C7E);
 
-  static LinearGradient cardShadow() {
+  static LinearGradient blueGradient() {
     return const LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      colors: [Colors.black54, Colors.transparent, Colors.transparent],
+      colors: [Color(0xff64ADEF), Color(0xff3198F4)],
     );
   }
 

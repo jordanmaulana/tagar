@@ -10,20 +10,30 @@ class DataController extends GetxController {
   late Directory dir;
   late Isar isar;
 
-  late IsarCollection collection;
-
   TextEditingController queryBox = TextEditingController();
+
   bool loading = true;
+  bool tagLoading = true;
+
   List<Data> data = [];
+  List<Tag> tags = [];
 
   deleteData(Data data) async {
     await isar.writeTxn((isar) async {
       await isar.datas.delete(data.id!);
     });
-    update();
+    beginDataQuery();
+    update(['data']);
   }
 
-  beginQuery({fromInit = false}) {
+  deleteTag(Tag data) async {
+    await isar.writeTxn((isar) async {
+      await isar.tags.delete(data.id!);
+    });
+    update(['tags']);
+  }
+
+  beginDataQuery() {
     List<String> queryList = queryBox.text.split('#');
     Get.log('queryList $queryList');
     queryList.removeAt(0);
@@ -43,32 +53,38 @@ class DataController extends GetxController {
     Stream<List<Tag>> tagsQueryChanged = finalQuery.watch(initialReturn: true);
     tagsQueryChanged.listen((event) async {
       List<Data> list = [];
-      Get.log('\n');
+      Get.log('listen:');
       for (var element in event) {
         await element.datas.load();
 
         for (var element in element.datas) {
           await element.tags.load();
           Set tags = queryList.toSet();
-          Get.log('qtags: $tags');
           Set elementTag = element.tags.map((e) => e.tag.trim()).toSet();
-          Get.log('etags: $elementTag');
-
-          Get.log('intersect ${elementTag.intersection(tags)}');
           if (elementTag.intersection(tags).length != tags.length) {
             continue;
           }
 
-          Get.log('data ${element.description}');
           if (list.firstWhereOrNull(
                   (listElement) => listElement.id == element.id) !=
               null) continue;
           list.add(element);
         }
       }
+      list.sort((b, a) => a.id!.compareTo(b.id!));
       data = list;
       loading = false;
-      update();
+      update(['data']);
+    });
+  }
+
+  beginTagQuery() {
+    Query<Tag> query = isar.tags.buildQuery();
+    Stream<List<Tag>> tagsQueryChanged = query.watch(initialReturn: true);
+    tagsQueryChanged.listen((event) async {
+      tags = event;
+      tagLoading = false;
+      update(['tags']);
     });
   }
 
@@ -79,8 +95,8 @@ class DataController extends GetxController {
       schemas: [DataSchema, TagSchema],
       directory: dir.path,
     );
-    beginQuery(fromInit: true);
-
+    beginDataQuery();
+    beginTagQuery();
     super.onInit();
   }
 }

@@ -1,9 +1,10 @@
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tagar/apps/main_nav/controllers/data_controller.dart';
+import 'package:tagar/core/utils/colors.dart';
 import 'package:tagar/core/widgets/lists.dart';
 import 'package:tagar/core/widgets/texts.dart';
+import 'package:tagar/data/data_controller.dart';
 import 'package:tagar/data/models/data.dart';
 import 'package:tagar/routes.dart';
 import 'package:tagar/utils/second_utils.dart';
@@ -17,9 +18,20 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     DataController controller = Get.find();
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.toNamed(Routes.addData),
-        child: const Icon(Icons.add),
+      floatingActionButton: InkWell(
+        onTap: () => Get.toNamed(Routes.addData),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: VColor.blueGradient(),
+            shape: BoxShape.circle,
+          ),
+          width: 56.0,
+          height: 56.0,
+          child: const Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -35,7 +47,7 @@ class HomeView extends StatelessWidget {
                         hintText: 'Cari #tagar',
                         onClear: () {},
                       ),
-                      onChanged: (v) => controller.beginQuery(),
+                      onChanged: (v) => controller.beginDataQuery(),
                     ),
                   ),
                 ],
@@ -44,6 +56,7 @@ class HomeView extends StatelessWidget {
             const SizedBox(height: 8.0),
             Expanded(
               child: GetBuilder(
+                id: 'data',
                 builder: (DataController controller) {
                   return VList(
                     loading: controller.loading,
@@ -74,7 +87,6 @@ class DataCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DataController controller = Get.find();
     return Container(
       decoration: VStyle.boxShadow(),
       child: Column(
@@ -106,14 +118,26 @@ class DataCard extends StatelessWidget {
             ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
               children: [
-                VText(data.description),
-                DataTags(data),
-                IconButton(
-                    onPressed: () => controller.deleteData(data),
-                    icon: const Icon(Icons.delete)),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      VText(data.description),
+                      DataTags(data),
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () =>
+                          Get.toNamed(Routes.addData, arguments: data),
+                      icon: const Icon(Icons.edit),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

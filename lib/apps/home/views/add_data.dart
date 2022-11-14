@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tagar/apps/main_nav/controllers/data_controller.dart';
 import 'package:tagar/core/widgets/buttons.dart';
 import 'package:tagar/core/widgets/inputs.dart';
+import 'package:tagar/core/widgets/popup.dart';
 import 'package:tagar/core/widgets/texts.dart';
-import 'package:tagar/data/models/data.dart';
+
+import '../../../routes.dart';
+import '../controllers/add_data_controller.dart';
 
 class AddDataView extends StatelessWidget {
   const AddDataView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    DataController controller = Get.find();
-    TextEditingController tagarBox = TextEditingController();
-    TextEditingController descBox = TextEditingController();
-    TextEditingController linkBox = TextEditingController();
-
+    AddDataController controller = Get.put(AddDataController());
     return Scaffold(
       appBar: AppBar(
-        title: const VText('Tambah Data'),
+        title: VText('${controller.data != null ? 'Ubah' : 'Tambah'} Data'),
+        actions: [
+          if (controller.data != null)
+            IconButton(
+              onPressed: () {
+                VPopup.proceedWarning(
+                  title: 'Hapus data?',
+                  message: 'Yakin nih mau dihapus?',
+                  callback: () async {
+                    await controller.controller.deleteData(controller.data!);
+                    Get.until(ModalRoute.withName(Routes.main));
+                  },
+                );
+              },
+              icon: const Icon(Icons.delete),
+            ),
+        ],
       ),
       body: Column(
         children: [
@@ -30,20 +44,20 @@ class AddDataView extends StatelessWidget {
                   VFormInput(
                     hint: '#Tagar',
                     maxLines: null,
-                    controller: tagarBox,
+                    controller: controller.tagarBox,
                   ),
                   const SizedBox(height: 16.0),
                   VFormInput(
                     hint: 'Deskripsi',
                     maxLines: null,
-                    controller: descBox,
+                    controller: controller.descBox,
                     textCapitalization: TextCapitalization.sentences,
                   ),
                   const SizedBox(height: 16.0),
                   VFormInput(
                     hint: 'Link',
                     maxLines: null,
-                    controller: linkBox,
+                    controller: controller.linkBox,
                   ),
                   const SizedBox(height: 16.0),
                 ],
@@ -54,22 +68,7 @@ class AddDataView extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: VButton(
               'Tambahkan',
-              onTap: () async {
-                final form = Data()
-                  ..description = descBox.text
-                  ..link = linkBox.text;
-
-                final tags = tagarBox.text.split('#');
-                tags.removeAt(0);
-                for (var element in tags) {
-                  form.tags.add(Tag()..tag = element);
-                }
-                await controller.isar.writeTxn((isar) async {
-                  await isar.datas.put(form);
-                  await form.tags.save();
-                });
-                Get.back();
-              },
+              onTap: () => controller.submit(),
             ),
           ),
         ],

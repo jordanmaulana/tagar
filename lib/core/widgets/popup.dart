@@ -72,7 +72,6 @@ class VPopup {
       required Function() callback}) {
     Get.dialog(
       Dialog(
-        backgroundColor: VColor.scaffoldBg,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
         child: Stack(
@@ -88,9 +87,7 @@ class VPopup {
                   VText(message, fontSize: 16.0),
                   const Divider(thickness: 1.0, height: 40.0),
                   VButton(
-                    'ok'.tr,
-                    boxColor: VColor.red,
-                    outlineColor: VColor.red,
+                    'OK',
                     onTap: callback,
                   )
                 ],
@@ -101,7 +98,7 @@ class VPopup {
               right: 0.0,
               child: IconButton(
                 onPressed: () => Get.back(),
-                icon: const Icon(Icons.close, color: VColor.red),
+                icon: const Icon(Icons.close, color: Colors.red),
               ),
             )
           ],

@@ -17,8 +17,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Tagar',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primarySwatch: Colors.blue, scaffoldBackgroundColor: Colors.white),
       getPages: [
         GetPage(
           name: Routes.main,
