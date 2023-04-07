@@ -13,7 +13,7 @@ class Data {
   @Name("link")
   String? link;
 
-  final tags = IsarLinks<Tag>();
+  IsarLinks<Tag> tags = IsarLinks<Tag>();
 
   DateTime createdAt = DateTime.now();
 }

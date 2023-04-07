@@ -33,15 +33,18 @@ class AddDataController extends GetxController {
     final tags = tagarBox.text.split('#');
     tags.removeAt(0);
     for (var element in tags) {
+      Get.log('element $element');
+
       var result = await controller.isar.tags
           .where()
-          .tagEqualTo(element)
+          .tagEqualTo(element.trim())
           .build()
           .findFirst();
-      Get.log('$result');
       if (result == null) {
+        Get.log('element not found $element');
         form.tags.add(Tag()..tag = element.trim());
       } else {
+        Get.log('element found $element');
         form.tags.add(result);
       }
     }

@@ -18,19 +18,11 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     DataController controller = Get.find();
     return Scaffold(
-      floatingActionButton: InkWell(
-        onTap: () => Get.toNamed(Routes.addData),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: VColor.blueGradient(),
-            shape: BoxShape.circle,
-          ),
-          width: 56.0,
-          height: 56.0,
-          child: const Icon(
-            Icons.add,
-            color: Colors.white,
-          ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Get.toNamed(Routes.addData),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
         ),
       ),
       body: SafeArea(
@@ -114,7 +106,7 @@ class DataCard extends StatelessWidget {
               cache: const Duration(days: 7),
               removeElevation: true,
               boxShadow: const [BoxShadow(blurRadius: 3, color: Colors.grey)],
-              onTap: () {}, // This disables tap event
+              // onTap: () {}, // This disables tap event
             ),
           Padding(
             padding: const EdgeInsets.all(8.0),

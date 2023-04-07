@@ -33,33 +33,37 @@ class DataController extends GetxController {
     update(['tags']);
   }
 
-  beginDataQuery() {
-    List<String> queryList = queryBox.text.split('#');
-    Get.log('queryList $queryList');
-    queryList.removeAt(0);
+  beginDataQuery() async {
+    List<String> queryTags =
+        queryBox.text.split('#').map((e) => e.trim()).toList();
+    Get.log('queryList $queryTags');
+    queryTags.removeAt(0);
+
     Query<Tag> finalQuery;
-    if (queryList.isEmpty) {
+    if (queryTags.isEmpty) {
       finalQuery = isar.tags.buildQuery();
     } else {
       var queryBuilder =
-          isar.tags.filter().tagStartsWith(queryList[0], caseSensitive: false);
-      for (var i = 1; i < queryList.length; i++) {
+          isar.tags.filter().tagStartsWith(queryTags[0], caseSensitive: false);
+      for (var i = 1; i < queryTags.length; i++) {
         queryBuilder =
-            queryBuilder.or().tagStartsWith(queryList[i], caseSensitive: false);
+            queryBuilder.or().tagStartsWith(queryTags[i], caseSensitive: false);
       }
       finalQuery = queryBuilder.build();
     }
 
     Stream<List<Tag>> tagsQueryChanged = finalQuery.watch(initialReturn: true);
+
     tagsQueryChanged.listen((event) async {
       List<Data> list = [];
+
       Get.log('listen:');
       for (var element in event) {
         await element.datas.load();
 
         for (var element in element.datas) {
           await element.tags.load();
-          Set tags = queryList.toSet();
+          Set tags = queryTags.toSet();
           Set elementTag = element.tags.map((e) => e.tag.trim()).toSet();
           if (elementTag.intersection(tags).length != tags.length) {
             continue;
