@@ -56,10 +56,10 @@ class HashtagsView extends StatelessWidget {
                         dense: true,
                         title: VText(data.name),
                         subtitle: TagDataItem(data.datas),
-                        // trailing: IconButton(
-                        //   icon: const Icon(Icons.delete),
-                        //   onPressed: () => controller.deleteTag(data),
-                        // ),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => controller.deleteTag(data),
+                        ),
                       );
                     },
                     onRefresh: () async {

@@ -21,12 +21,15 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.orange,
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: const AppBarTheme(
-          backgroundColor: VColor.white,
+          backgroundColor: VColor.orange,
           elevation: 0.0,
           centerTitle: true,
+          iconTheme: IconThemeData(
+            color: VColor.white,
+          ),
           titleTextStyle: TextStyle(
             fontSize: 16.0,
-            color: VColor.dark,
+            color: VColor.white,
           ),
         ),
       ),

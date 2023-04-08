@@ -47,7 +47,6 @@ class HomeView extends StatelessWidget {
                 onChanged: (v) => controller.beginDataQuery(),
               ),
             ),
-            const SizedBox(height: 8.0),
             Expanded(
               child: GetBuilder(
                 id: 'data',
