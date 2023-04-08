@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../utils/colors.dart';
 
@@ -33,18 +34,19 @@ class VStyle {
   static InputDecoration whiteBoxSearch({
     required String hintText,
     required void Function() onClear,
-    double corner = 24.0,
+    double corner = 8.0,
     bool useSuffix = false,
   }) {
     return InputDecoration(
       contentPadding: const EdgeInsets.all(0.0),
       hintText: hintText,
-      hintStyle: const TextStyle(color: VColor.searchText, fontSize: 14.0),
-      prefixIcon: const Icon(Icons.search, color: VColor.searchText),
+      hintStyle: GoogleFonts.poppins(fontSize: 14.0),
+      prefixIcon: const Icon(Icons.search),
       filled: true,
       fillColor: Colors.white,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(corner),
+        borderSide: BorderSide.none,
       ),
       suffixIcon: useSuffix
           ? InkWell(
@@ -53,11 +55,9 @@ class VStyle {
                 margin: const EdgeInsets.all(12.0),
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white54,
                 ),
                 child: const Icon(
                   Icons.clear,
-                  color: VColor.searchText,
                   size: 12.0,
                 ),
               ),

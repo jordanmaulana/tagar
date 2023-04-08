@@ -1,6 +1,7 @@
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tagar/core/utils/colors.dart';
 import 'package:tagar/core/widgets/lists.dart';
 import 'package:tagar/core/widgets/texts.dart';
@@ -18,6 +19,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     DataController controller = Get.find();
     return Scaffold(
+      backgroundColor: VColor.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.toNamed(Routes.addData),
         child: const Icon(
@@ -28,21 +30,19 @@ class HomeView extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
+            Container(
               padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: controller.queryBox,
-                      decoration: VStyle.whiteBoxSearch(
-                        hintText: 'Cari #tagar',
-                        onClear: () {},
-                      ),
-                      onChanged: (v) => controller.beginDataQuery(),
-                    ),
-                  ),
-                ],
+              decoration: const BoxDecoration(
+                color: VColor.orange,
+              ),
+              child: TextFormField(
+                controller: controller.queryBox,
+                style: GoogleFonts.poppins(fontSize: 14.0),
+                decoration: VStyle.whiteBoxSearch(
+                  hintText: 'Cari #tagar',
+                  onClear: () {},
+                ),
+                onChanged: (v) => controller.beginDataQuery(),
               ),
             ),
             const SizedBox(height: 8.0),
@@ -79,61 +79,55 @@ class DataCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: VStyle.boxShadow(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (data.link != null)
-            AnyLinkPreview(
-              link: data.link!,
-              displayDirection: UIDirection.uiDirectionVertical,
-              showMultimedia: true,
-              bodyMaxLines: 5,
-              bodyTextOverflow: TextOverflow.ellipsis,
-              titleStyle: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0,
-              ),
-              bodyStyle: const TextStyle(color: Colors.grey, fontSize: 12),
-              errorBody: 'Preview tidak bisa ditampilkan',
-              errorTitle: 'Kesalahan',
-              errorWidget: Container(
-                color: Colors.grey[300],
-                child: const Text('Oops!'),
-              ),
-              cache: const Duration(days: 7),
-              removeElevation: true,
-              boxShadow: const [BoxShadow(blurRadius: 3, color: Colors.grey)],
-              // onTap: () {}, // This disables tap event
-            ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      VText(data.description),
-                      DataTags(data),
-                    ],
+    return InkWell(
+      onTap: () => Get.toNamed(Routes.addData, arguments: data),
+      child: Container(
+        decoration: VStyle.boxShadow(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (data.link != null)
+              AbsorbPointer(
+                child: AnyLinkPreview(
+                  backgroundColor: VColor.white,
+                  link: data.link!,
+                  displayDirection: UIDirection.uiDirectionVertical,
+                  showMultimedia: true,
+                  bodyMaxLines: 2,
+                  bodyTextOverflow: TextOverflow.ellipsis,
+                  titleStyle: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.0,
                   ),
+                  bodyStyle: GoogleFonts.poppins(fontSize: 12),
+                  errorBody: 'Preview tidak bisa ditampilkan',
+                  errorTitle: 'Kesalahan',
+                  errorWidget: Container(
+                    color: Colors.grey[300],
+                    child: const Text('Oops!'),
+                  ),
+                  cache: const Duration(days: 7),
+                  removeElevation: true,
+                  onTap: () {}, // This disables tap event
                 ),
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: () =>
-                          Get.toNamed(Routes.addData, arguments: data),
-                      icon: const Icon(Icons.edit),
+              ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (data.description != null && data.description!.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16.0),
+                      child: VText(data.description),
                     ),
-                  ],
-                ),
-              ],
+                  DataTags(data),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -153,7 +147,7 @@ class _DataTagsState extends State<DataTags> {
   Widget build(BuildContext context) {
     return VText(
       SecondUtils.listToHashtag(widget.data.tags.map((e) => e.tag).toList()),
-      color: Colors.blue,
+      color: VColor.orange,
     );
   }
 

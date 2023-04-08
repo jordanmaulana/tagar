@@ -19,8 +19,8 @@ class VButton extends StatelessWidget {
     this.height,
     this.textColor,
     this.enabled = true,
-    this.outlineColor = Colors.blue,
-    this.boxColor = Colors.blue,
+    this.outlineColor = VColor.orange,
+    this.boxColor = VColor.orange,
     required this.onTap,
     Key? key,
   }) : super(key: key);
@@ -34,7 +34,7 @@ class VButton extends StatelessWidget {
         height: height ?? 49.0,
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(24.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(8.0)),
           border: Border.all(color: enabled ? outlineColor : boxColor),
           color: enabled ? boxColor : VColor.searchText,
         ),

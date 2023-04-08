@@ -34,12 +34,15 @@ class MainNavView extends StatelessWidget {
           currentIndex: controller.index.value,
           onTap: (v) => controller.setPage(v),
           unselectedItemColor: Colors.white30,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 'assets/svgs/house.svg',
                 width: 24.0,
-                color: controller.index.value == 0 ? Colors.blue : VColor.grey,
+                color:
+                    controller.index.value == 0 ? VColor.orange : VColor.grey,
               ),
               label: '',
             ),
@@ -47,7 +50,8 @@ class MainNavView extends StatelessWidget {
               icon: SvgPicture.asset(
                 'assets/svgs/hashtag.svg',
                 width: 20.0,
-                color: controller.index.value == 1 ? Colors.blue : VColor.grey,
+                color:
+                    controller.index.value == 1 ? VColor.orange : VColor.grey,
               ),
               label: '',
             ),

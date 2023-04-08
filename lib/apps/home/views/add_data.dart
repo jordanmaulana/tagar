@@ -42,9 +42,9 @@ class AddDataView extends StatelessWidget {
               child: Column(
                 children: [
                   VFormInput(
-                    hint: '#Tagar',
+                    hint: 'Link',
                     maxLines: null,
-                    controller: controller.tagarBox,
+                    controller: controller.linkBox,
                   ),
                   const SizedBox(height: 16.0),
                   VFormInput(
@@ -55,9 +55,9 @@ class AddDataView extends StatelessWidget {
                   ),
                   const SizedBox(height: 16.0),
                   VFormInput(
-                    hint: 'Link',
+                    hint: '#Tagar',
                     maxLines: null,
-                    controller: controller.linkBox,
+                    controller: controller.tagarBox,
                   ),
                   const SizedBox(height: 16.0),
                 ],

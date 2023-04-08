@@ -48,7 +48,8 @@ dependencies:
   isar_flutter_libs: 2.5.0 # contains the binaries
   path_provider: ^2.0.11
   any_link_preview: ^2.0.9
-
+  font_awesome_flutter: ^10.4.0
+  
 dev_dependencies:
   isar_generator: 2.5.0
   build_runner: ^2.1.7
