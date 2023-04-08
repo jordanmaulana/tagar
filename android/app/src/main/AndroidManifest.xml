@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.isenjo.tagar">
    <application
-        android:label="tagar"
+        android:label="Tagar"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
