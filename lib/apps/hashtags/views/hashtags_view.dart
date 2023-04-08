@@ -27,7 +27,7 @@ class HashtagsView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  VText(
+                  const VText(
                     '#Tagar',
                     color: VColor.white,
                     fontSize: 20.0,
