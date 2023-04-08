@@ -88,6 +88,8 @@ class DataController extends GetxController {
     Stream<List<Tag>> tagsQueryChanged = query.watch(initialReturn: true);
     tagsQueryChanged.listen((event) async {
       tags = event;
+      tags.sort((a, b) => a.name.compareTo(b.name));
+
       tagLoading = false;
       update(['tags']);
     });
