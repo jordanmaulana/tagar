@@ -31,6 +31,8 @@ class HomeView extends StatelessWidget {
         child: Column(
           children: [
             Container(
+              height: 120.0,
+              alignment: Alignment.center,
               padding: const EdgeInsets.all(16.0),
               decoration: const BoxDecoration(
                 color: VColor.orange,

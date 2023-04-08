@@ -5,6 +5,7 @@ import 'package:tagar/data/data_controller.dart';
 import 'package:tagar/core/widgets/lists.dart';
 import 'package:tagar/data/models/data.dart';
 
+import '../../../core/utils/colors.dart';
 import '../../../core/widgets/texts.dart';
 
 class HashtagsView extends StatelessWidget {
@@ -13,31 +14,64 @@ class HashtagsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const VText('Tagar')),
-      body: GetBuilder(
-        id: 'tags',
-        builder: (DataController controller) {
-          return VList(
-            loading: controller.tagLoading,
-            length: controller.tags.length,
-            itemBuilder: (c, i) {
-              Tag data = controller.tags[i];
-              return ListTile(
-                dense: true,
-                title: VText(data.name),
-                subtitle: TagDataItem(data.datas),
-                // trailing: IconButton(
-                //   icon: const Icon(Icons.delete),
-                //   onPressed: () => controller.deleteTag(data),
-                // ),
-              );
-            },
-            onRefresh: () async {
-              return;
-            },
-            errorMsg: '',
-          );
-        },
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              height: 120.0,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(16.0),
+              decoration: const BoxDecoration(
+                color: VColor.orange,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  VText(
+                    '#Tagar',
+                    color: VColor.white,
+                    fontSize: 20.0,
+                  ),
+                  GetBuilder(
+                    builder: (DataController controller) {
+                      return VText(
+                        'Kamu punya  ${controller.tags.length}  tagar',
+                        color: VColor.white,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: GetBuilder(
+                id: 'tags',
+                builder: (DataController controller) {
+                  return VList(
+                    loading: controller.tagLoading,
+                    length: controller.tags.length,
+                    itemBuilder: (c, i) {
+                      Tag data = controller.tags[i];
+                      return ListTile(
+                        dense: true,
+                        title: VText(data.name),
+                        subtitle: TagDataItem(data.datas),
+                        // trailing: IconButton(
+                        //   icon: const Icon(Icons.delete),
+                        //   onPressed: () => controller.deleteTag(data),
+                        // ),
+                      );
+                    },
+                    onRefresh: () async {
+                      return;
+                    },
+                    errorMsg: '',
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
