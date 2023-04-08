@@ -29,7 +29,7 @@ class VFormInput extends StatelessWidget {
   const VFormInput({
     this.label,
     this.hint,
-    this.radius = 12.0,
+    this.radius = 8.0,
     this.obscure = false,
     this.suffixIcon,
     this.validator,
