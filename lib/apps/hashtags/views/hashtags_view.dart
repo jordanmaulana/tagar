@@ -33,6 +33,7 @@ class HashtagsView extends StatelessWidget {
                     fontSize: 20.0,
                   ),
                   GetBuilder(
+                    id: 'tags',
                     builder: (DataController controller) {
                       return VText(
                         'Kamu punya  ${controller.tags.length}  tagar',
