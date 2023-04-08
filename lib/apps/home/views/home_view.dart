@@ -86,7 +86,7 @@ class DataCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (data.link != null)
+            if (data.link != null && data.link!.isNotEmpty)
               AbsorbPointer(
                 child: AnyLinkPreview(
                   backgroundColor: VColor.white,
@@ -107,7 +107,6 @@ class DataCard extends StatelessWidget {
                     color: Colors.grey[300],
                     child: const Text('Oops!'),
                   ),
-                  cache: const Duration(days: 7),
                   removeElevation: true,
                   onTap: () {}, // This disables tap event
                 ),
@@ -146,7 +145,7 @@ class _DataTagsState extends State<DataTags> {
   @override
   Widget build(BuildContext context) {
     return VText(
-      SecondUtils.listToHashtag(widget.data.tags.map((e) => e.tag).toList()),
+      SecondUtils.listToHashtag(widget.data.tags.map((e) => e.name).toList()),
       color: VColor.orange,
     );
   }

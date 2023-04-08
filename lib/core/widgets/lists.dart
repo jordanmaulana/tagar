@@ -58,7 +58,7 @@ class VList extends StatelessWidget {
         physics: physics,
         padding: padding ?? const EdgeInsets.all(16.0),
         itemCount: length,
-        separatorBuilder: (c, i) => separator ?? SizedBox(height: height),
+        separatorBuilder: (c, i) => separator ?? Divider(height: height),
         itemBuilder: itemBuilder,
       ),
     );

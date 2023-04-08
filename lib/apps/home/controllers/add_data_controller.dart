@@ -32,26 +32,39 @@ class AddDataController extends GetxController {
 
     final tags = tagarBox.text.split('#');
     tags.removeAt(0);
+
+    List<Tag> tagList = [];
     for (var element in tags) {
       Get.log('element $element');
 
-      var result = await controller.isar.tags
+      Tag? result = await controller.isar.tags
           .where()
-          .tagEqualTo(element.trim())
+          .nameEqualTo(element.trim())
           .build()
           .findFirst();
       if (result == null) {
         Get.log('element not found $element');
-        form.tags.add(Tag()..tag = element.trim());
+        Tag tag = Tag()
+          ..name = element.trim()
+          ..datas.add(form);
+        form.tags.add(tag);
+        tagList.add(tag);
       } else {
+        Tag tag = result..datas.add(form);
         Get.log('element found $element');
-        form.tags.add(result);
+        form.tags.add(tag);
+        tagList.add(tag);
       }
     }
     await controller.isar.writeTxn((isar) async {
       await isar.datas.put(form);
       await form.tags.save();
+      await isar.tags.putAll(tagList);
     });
+
+    for (var v in tagList) {
+      Get.log('${v.name} ${v.datas.length}');
+    }
     controller.beginDataQuery();
     Get.back();
   }
@@ -61,7 +74,7 @@ class AddDataController extends GetxController {
     if (data != null) {
       await data!.tags.load();
       tagarBox.text =
-          SecondUtils.listToHashtag(data!.tags.map((e) => e.tag).toList());
+          SecondUtils.listToHashtag(data!.tags.map((e) => e.name).toList());
       descBox.text = data!.description ?? '';
       linkBox.text = data!.link ?? '';
     }
