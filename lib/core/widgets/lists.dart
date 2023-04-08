@@ -47,7 +47,7 @@ class VList extends StatelessWidget {
     if (length == 0) return Center(child: emptyPlaceHolder ?? const NoData());
     if (controller != null) {
       SchedulerBinding.instance
-          ?.addPostFrameCallback((_) => scrollToEnd(controller!));
+          .addPostFrameCallback((_) => scrollToEnd(controller!));
     }
     return RefreshIndicator(
       onRefresh: onRefresh,
