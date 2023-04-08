@@ -19,7 +19,6 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     DataController controller = Get.find();
     return Scaffold(
-      backgroundColor: VColor.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.toNamed(Routes.addData),
         child: const Icon(
