@@ -22,11 +22,12 @@ class HashtagsView extends StatelessWidget {
             itemBuilder: (c, i) {
               Tag data = controller.tags[i];
               return ListTile(
-                title: VText(data.tag),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () => controller.deleteTag(data),
-                ),
+                dense: true,
+                title: VText('${data.name} (${data.datas.length})'),
+                // trailing: IconButton(
+                //   icon: const Icon(Icons.delete),
+                //   onPressed: () => controller.deleteTag(data),
+                // ),
               );
             },
             onRefresh: () async {

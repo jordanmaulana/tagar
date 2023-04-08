@@ -44,10 +44,11 @@ class DataController extends GetxController {
       finalQuery = isar.tags.buildQuery();
     } else {
       var queryBuilder =
-          isar.tags.filter().tagStartsWith(queryTags[0], caseSensitive: false);
+          isar.tags.filter().nameStartsWith(queryTags[0], caseSensitive: false);
       for (var i = 1; i < queryTags.length; i++) {
-        queryBuilder =
-            queryBuilder.or().tagStartsWith(queryTags[i], caseSensitive: false);
+        queryBuilder = queryBuilder
+            .or()
+            .nameStartsWith(queryTags[i], caseSensitive: false);
       }
       finalQuery = queryBuilder.build();
     }
@@ -64,7 +65,7 @@ class DataController extends GetxController {
         for (var element in element.datas) {
           await element.tags.load();
           Set tags = queryTags.toSet();
-          Set elementTag = element.tags.map((e) => e.tag.trim()).toSet();
+          Set elementTag = element.tags.map((e) => e.name.trim()).toSet();
           if (elementTag.intersection(tags).length != tags.length) {
             continue;
           }

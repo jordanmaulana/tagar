@@ -23,7 +23,7 @@ class Tag {
   int? id;
 
   @Index()
-  late String tag;
+  late String name;
 
   @Backlink(to: 'tags')
   final datas = IsarLinks<Data>();
