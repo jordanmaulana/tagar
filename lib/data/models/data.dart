@@ -1,11 +1,9 @@
 import 'package:isar/isar.dart';
-
 part 'data.g.dart';
 
 @Collection()
 class Data {
-  @Id()
-  int? id;
+  Id id = Isar.autoIncrement;
 
   @Name("desc")
   String? description;
@@ -20,7 +18,7 @@ class Data {
 
 @Collection()
 class Tag {
-  int? id;
+  Id id = Isar.autoIncrement;
 
   @Index()
   late String name;

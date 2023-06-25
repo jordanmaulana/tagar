@@ -56,10 +56,10 @@ class AddDataController extends GetxController {
         tagList.add(tag);
       }
     }
-    await controller.isar.writeTxn((isar) async {
-      await isar.datas.put(form);
+    await controller.isar.writeTxn(() async {
+      await controller.isar.datas.put(form);
       await form.tags.save();
-      await isar.tags.putAll(tagList);
+      await controller.isar.tags.putAll(tagList);
     });
 
     for (var v in tagList) {

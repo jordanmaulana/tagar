@@ -19,16 +19,16 @@ class DataController extends GetxController {
   List<Tag> tags = [];
 
   deleteData(Data data) async {
-    await isar.writeTxn((isar) async {
-      await isar.datas.delete(data.id!);
+    await isar.writeTxn(() async {
+      await isar.datas.delete(data.id);
     });
     beginDataQuery();
     update(['data']);
   }
 
   deleteTag(Tag data) async {
-    await isar.writeTxn((isar) async {
-      await isar.tags.delete(data.id!);
+    await isar.writeTxn(() async {
+      await isar.tags.delete(data.id);
     });
     update(['tags']);
   }
@@ -53,7 +53,8 @@ class DataController extends GetxController {
       finalQuery = queryBuilder.build();
     }
 
-    Stream<List<Tag>> tagsQueryChanged = finalQuery.watch(initialReturn: true);
+    Stream<List<Tag>> tagsQueryChanged =
+        finalQuery.watch(fireImmediately: true);
 
     tagsQueryChanged.listen((event) async {
       List<Data> list = [];
@@ -76,7 +77,7 @@ class DataController extends GetxController {
           list.add(element);
         }
       }
-      list.sort((b, a) => a.id!.compareTo(b.id!));
+      list.sort((b, a) => a.id.compareTo(b.id));
       data = list;
       loading = false;
       update(['data']);
@@ -85,7 +86,7 @@ class DataController extends GetxController {
 
   beginTagQuery() {
     Query<Tag> query = isar.tags.buildQuery();
-    Stream<List<Tag>> tagsQueryChanged = query.watch(initialReturn: true);
+    Stream<List<Tag>> tagsQueryChanged = query.watch(fireImmediately: true);
     tagsQueryChanged.listen((event) async {
       tags = event;
       tags.sort((a, b) => a.name.compareTo(b.name));
@@ -99,7 +100,7 @@ class DataController extends GetxController {
   void onInit() async {
     dir = await getApplicationSupportDirectory();
     isar = await Isar.open(
-      schemas: [DataSchema, TagSchema],
+      [DataSchema, TagSchema],
       directory: dir.path,
     );
     beginDataQuery();

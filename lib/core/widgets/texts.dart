@@ -101,7 +101,7 @@ class VersionText extends StatefulWidget {
   const VersionText({this.onlyVersion = false, Key? key}) : super(key: key);
 
   @override
-  _VersionTextState createState() => _VersionTextState();
+  State<VersionText> createState() => _VersionTextState();
 }
 
 class _VersionTextState extends State<VersionText> {
