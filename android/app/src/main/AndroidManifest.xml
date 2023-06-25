@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.isenjo.tagar">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
    <application
         android:label="Tagar"
         android:name="${applicationName}"
