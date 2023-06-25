@@ -26,4 +26,8 @@ class VColor {
       colors: [Color(0xff64ADEF), Color(0xff3198F4)],
     );
   }
+
+  static colorFilterFromColor(Color color) {
+    return ColorFilter.mode(color, BlendMode.dstIn);
+  }
 }

@@ -49,6 +49,7 @@ dependencies:
   path_provider: ^2.0.11
   any_link_preview: ^3.0.1
   font_awesome_flutter: ^10.4.0
+  sentry_flutter: ^7.7.0
   
 dev_dependencies:
   isar_generator: ^3.1.0+1
