@@ -1,0 +1,3 @@
+Yang bisa dicoba sekarang:
+1. Tambah, hapus, lihat semua tagar
+2. Tambah konten dalam tagar
