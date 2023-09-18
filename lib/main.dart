@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:tagar/apps/home/views/add_data.dart';
@@ -9,6 +10,10 @@ import 'package:tagar/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarBrightness: Brightness.dark,
+    statusBarColor: VColor.orange,
+  ));
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarBrightness: Brightness.dark,
     statusBarColor: VColor.orange,
@@ -44,8 +49,12 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(
             color: VColor.white,
           ),
+          iconTheme: IconThemeData(
+            color: VColor.white,
+          ),
           titleTextStyle: TextStyle(
             fontSize: 16.0,
+            color: VColor.white,
             color: VColor.white,
           ),
         ),
