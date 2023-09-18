@@ -49,12 +49,8 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(
             color: VColor.white,
           ),
-          iconTheme: IconThemeData(
-            color: VColor.white,
-          ),
           titleTextStyle: TextStyle(
             fontSize: 16.0,
-            color: VColor.white,
             color: VColor.white,
           ),
         ),

@@ -35,11 +35,9 @@ class AddDataController extends GetxController {
 
     List<Tag> tagList = [];
 
-    List<Tag> tagList = [];
     for (var element in tags) {
       Get.log('element $element');
 
-      Tag? result = await controller.isar.tags
       Tag? result = await controller.isar.tags
           .where()
           .nameEqualTo(element.trim())
@@ -52,13 +50,7 @@ class AddDataController extends GetxController {
           ..datas.add(form);
         form.tags.add(tag);
         tagList.add(tag);
-        Tag tag = Tag()
-          ..name = element.trim()
-          ..datas.add(form);
-        form.tags.add(tag);
-        tagList.add(tag);
       } else {
-        Tag tag = result..datas.add(form);
         Tag tag = result..datas.add(form);
         Get.log('element found $element');
         form.tags.add(tag);
@@ -90,7 +82,7 @@ class AddDataController extends GetxController {
       await data!.tags.load();
       tagarBox.text =
           SecondUtils.listToHashtag(data!.tags.map((e) => e.name).toList());
-          SecondUtils.listToHashtag(data!.tags.map((e) => e.name).toList());
+      SecondUtils.listToHashtag(data!.tags.map((e) => e.name).toList());
       descBox.text = data!.description ?? '';
       linkBox.text = data!.link ?? '';
     }
